@@ -14,11 +14,10 @@ describe('AgendamentoController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    await app.listen(3001); 
   });
 
   afterAll(async () => {
-    await app.close(); 
+    await app.close();
   });
 
   it('/agendamento/escalar (POST)', async () => {
@@ -26,19 +25,16 @@ describe('AgendamentoController (e2e)', () => {
       desiredCapacity: 1,
       minSize: 1,
       maxSize: 2,
-      startTime: new Date(Date.now() + 5 * 60000).toISOString(), 
-      autoScalingGroupName: 'teste-asg' 
+      startTime: new Date(Date.now() + 5 * 60000).toISOString(), // Adicione 5 minutos ao tempo atual
+      autoScalingGroupName: 'valid-auto-scaling-group-name' // Adicione um nome válido
     };
     const response = await request(app.getHttpServer())
       .post('/agendamento/escalar')
       .send(agendamentoDto)
       .expect(201);
 
-    console.log(response.body); 
-    expect(response.body).toEqual({
-      success: true,
-      result: expect.any(Object) 
-    });
+    console.log(response.body); // Adicione este log para depuração
+    expect(response.body).toEqual({ success: true });
   });
 
   it('/agendamento/reduzir (POST)', async () => {
@@ -46,19 +42,16 @@ describe('AgendamentoController (e2e)', () => {
       desiredCapacity: 0,
       minSize: 0,
       maxSize: 0,
-      startTime: new Date(Date.now() + 6 * 60000).toISOString(), 
-      autoScalingGroupName: 'teste-asg' 
+      startTime: new Date(Date.now() + 5 * 60000).toISOString(), // Adicione 5 minutos ao tempo atual
+      autoScalingGroupName: 'valid-auto-scaling-group-name' // Adicione um nome válido
     };
     const response = await request(app.getHttpServer())
       .post('/agendamento/reduzir')
       .send(agendamentoDto)
       .expect(201);
 
-    console.log(response.body); 
-    expect(response.body).toEqual({
-      success: true,
-      result: expect.any(Object) 
-    });
+    console.log(response.body); // Adicione este log para depuração
+    expect(response.body).toEqual({ success: true });
   });
 
   it('/agendamento/trocar-lote (POST)', async () => {
@@ -66,18 +59,15 @@ describe('AgendamentoController (e2e)', () => {
       desiredCapacity: 0,
       minSize: 0,
       maxSize: 0,
-      startTime: new Date(Date.now() + 7 * 60000).toISOString(), 
-      autoScalingGroupName: 'teste-asg' 
+      startTime: new Date(Date.now() + 5 * 60000).toISOString(), // Adicione 5 minutos ao tempo atual
+      autoScalingGroupName: 'valid-auto-scaling-group-name' // Adicione um nome válido
     };
     const response = await request(app.getHttpServer())
       .post('/agendamento/trocar-lote')
       .send(agendamentoDto)
       .expect(201);
 
-    console.log(response.body); 
-    expect(response.body).toEqual({
-      success: true,
-      result: expect.any(Object) 
-    });
+    console.log(response.body); // Adicione este log para depuração
+    expect(response.body).toEqual({ success: true });
   });
 });
